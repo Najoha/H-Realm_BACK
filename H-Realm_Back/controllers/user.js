@@ -9,12 +9,14 @@ exports.signup = async (req, res, next) => {
     const hash = await bcrypt.hash(req.body.password, 10);
     newUser["password"] = hash
     const user = User.create(newUser)
-    return res.send(user)
+    return res.send(user) 
   } catch (error) {
     console.error(error)
     throw error
   }
 };
+
+let log = "";
 
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
@@ -27,7 +29,9 @@ exports.login = (req, res, next) => {
             if (!valid) {
               res.status(401).json({ message: "Paire identifiant/mot de passe incorrecte" });
             } else {
-              res.status(200).json({
+                let log = true;
+                console.log(log);
+                res.status(200).json({
                 userId: user._id,
                 token: jwt.sign(
                     { userId: user._id},
