@@ -12,14 +12,11 @@
     "dotenv": "^16.0.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "^1.9.2",
-    "latest": "^0.2.0",
+    "jade": "^1.11.2",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.0",
     "mongoose-unique-validator": "^3.1.0",
     "morgan": "~1.9.1",
-    "n": "^9.0.0",
-    "nodemon": "^2.0.19",
-    "stable": "^0.1.8"
+    "nodemon": "^2.0.19"
   }
 }
