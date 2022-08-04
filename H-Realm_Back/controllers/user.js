@@ -16,6 +16,8 @@ exports.signup = async (req, res, next) => {
   }
 };
 
+// let log = "";
+
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {

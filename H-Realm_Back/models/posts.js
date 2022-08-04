@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const postSchema = mongoose.Schema({
-    description: { type: String, required: true}
-});
+    titre: {type: String, required: true },
+    contenu: { type: String, required: true},
+    owner: { type: String, required: true },
+    likes : { type: Number}
+}, {collection: "posts", timestamps: true});
 
-const Post = mongoose.model('Post', postSchema);
+postSchema.plugin(uniqueValidator);
+
+const Post = mongoose.model('Posts', postSchema);
 module.exports = { Post }
