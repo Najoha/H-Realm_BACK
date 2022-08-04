@@ -1,8 +1,10 @@
+const express = require('express');
 const router = express.Router();
-import { getPubli, getPubliByOwner, createPubli } from '../controllers/post';
 
-router.get("/", getPubli);
-router.get("/publication/:owner", getPubliByOwner);
-router.post("/add", createPubli);
+const postCtrl = require('../controllers/post');
 
-export default router;
+router.get("/", postCtrl.getPubli);
+router.get("/publication/:owner", postCtrl.getPubliByOwner);
+router.post("/add", postCtrl.createPubli);
+
+module.exports = router;

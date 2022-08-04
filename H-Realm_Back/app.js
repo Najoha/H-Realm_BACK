@@ -7,7 +7,7 @@ const db = require("./config/db");
 
 var usersRouter = require('./routes/users');
 var userRouter = require('./routes/user');
-var publiRouter = require('./routes/posts').default;
+var publiRouter = require('./routes/posts');
 
 var app = express();
 

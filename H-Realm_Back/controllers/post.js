@@ -1,3 +1,4 @@
+const { find } = require("../models/posts");
 const { Post } = require("../models/posts");
 
 exports.createPubli = async (req, res, next) => {
@@ -16,7 +17,7 @@ exports.getPubli = async (req,res,next)=>{
   return res.send(posts);
 }
 
-exports.getPubliByOwner.getPubliByOwner = async (req,res,next)=>{
+exports.getPubliByOwner = async (req,res,next)=>{
   const owner = req.params.owner;
   const posts = await Post.find({owner: owner});
   return res.send(posts);
