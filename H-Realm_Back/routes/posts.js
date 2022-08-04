@@ -1,8 +1,8 @@
 const router = express.Router();
-const publiCtrl = require('../controllers/post');
+import { getPubli, getPubliByOwner, createPubli } from '../controllers/post';
 
-router.get("/", publiCtrl.getPubli);
-router.get("/publication/:owner", publiCtrl.getPubliByOwner);
-router.post("/add", publiCtrl.createPubli);
+router.get("/", getPubli);
+router.get("/publication/:owner", getPubliByOwner);
+router.post("/add", createPubli);
 
-module.exports = router;
+export default router;
