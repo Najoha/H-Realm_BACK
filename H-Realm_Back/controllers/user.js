@@ -16,8 +16,6 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-let log = "";
-
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
@@ -29,7 +27,6 @@ exports.login = (req, res, next) => {
             if (!valid) {
               res.status(401).json({ message: "Paire identifiant/mot de passe incorrecte" });
             } else {
-                let log = true;
                 console.log(log);
                 res.status(200).json({
                 userId: user._id,
@@ -45,9 +42,26 @@ exports.login = (req, res, next) => {
           .catch((error) => {
             res.status(500).json({ error });
           });
-      }
+    }
     })
     .catch((error) => {
       res.status(500).json({ error });
     });
 };
+
+exports.token = (req, res, next) => {
+    User.findOne({ email: req.body.email })
+    .then((user) => {
+        if (user === null) {
+            res.status(401).json({ message: "Paire identifiant/mot de passe incorrecte" });
+        } else {
+            tok = user.id(1)
+            console.log(tok);
+        }
+    })
+    .catch((error) => {
+        res.status(500).json({ error });
+    })
+}
+
+    
