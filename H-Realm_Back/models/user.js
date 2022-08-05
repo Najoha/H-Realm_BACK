@@ -26,6 +26,9 @@ const userSchema = mongoose.Schema({
     bio : {
         type : String,
         required : true
+    },
+    token: {
+        type : String
     }
 }, {collection: "users", timestamps: true});
 

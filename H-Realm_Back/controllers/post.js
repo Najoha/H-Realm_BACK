@@ -2,15 +2,28 @@ const { find } = require("../models/posts");
 const { Post } = require("../models/posts");
 
 exports.createPubli = async (req, res, next) => {
+
   try {
-    const newPost = req.body;
-    const post = Post.create(newPost)
-    return res.send(post) 
-  } catch (error) {
-    console.error(error)
-    throw error
+
+    const { titre, contenu, owner} = req.body;
+
+    if (!(titre && contenu && owner)) {
+      res.status(400).send('All input is required');
+    }
+
+    const post = await Post.create({
+      titre,
+      contenu,
+      owner
+    });
+
+    res.status(200).send(post);
+
+  } 
+  catch (error) {
+    console.log(error);
   }
-};
+}
 
 exports.getPubli = async (req,res,next)=>{
   const posts = await Post.find();
