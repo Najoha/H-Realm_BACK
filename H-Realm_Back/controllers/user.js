@@ -4,7 +4,7 @@ const { User } = require("../models/user");
 const jwt = require('jsonwebtoken');
 
 require("../config/db").connect();
-require("dotenv").config();
+require("dotenv").config;
 
 
 exports.signup = async (req, res) => {
@@ -44,6 +44,8 @@ exports.signup = async (req, res) => {
 exports.login = async (req, res) => {
 
     try {
+        TOKEN_KEY = 'RANDOM_TOKEN_SECRET'
+
         const { email, password } = req.body;
 
         if(!(email && password)) {
@@ -55,8 +57,8 @@ exports.login = async (req, res) => {
         if (user && (await bcrypt.compare(password, user.password))) {
             const token = jwt.sign(
                 { user_id: user._id, email },
-                process.env.TOKEN_KEY,
-                { expiresIn: "24h" }
+                TOKEN_KEY,
+                { expiresIn: "24h" },
             );
 
             user.token = token;
@@ -72,6 +74,19 @@ exports.login = async (req, res) => {
 
 exports.test = async (req, res) => {
     return res.status(200).send("hello")
+}
+
+exports.logout = async (req, res) => {
+    try {
+        const { id } = req.body;
+
+        await User.deleteOne({_id: id});
+
+        return res.status(201).json('delete ok');
+    }
+    catch (err) {
+        return res.status(501).json(error);
+    }
 }
 
     

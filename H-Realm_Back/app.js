@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const db = require("./config/db");
 const auth = require('./middleware/auth');
-require("dotenv").config
+//require("dotenv").config
 
 var usersRouter = require('./routes/users');
 var userRouter = require('./routes/user');
