@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const postSchema = mongoose.Schema({
-    titre: {type: String, required: true },
+    id: { type: String, required: true, unique: true },
+    titre: { type: String, required: true },
     contenu: { type: String, required: true},
     owner: { type: String, required: true },
     likes : { type: Number}

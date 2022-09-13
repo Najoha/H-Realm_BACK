@@ -89,4 +89,7 @@ exports.logout = async (req, res) => {
     }
 }
 
-    
+exports.getUser = async (req,res,next)=>{
+    const users = await User.find();
+    return res.send(users);
+}

@@ -1,17 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const db = require("./config/db");
 const auth = require('./middleware/auth');
 //require("dotenv").config
 
-var usersRouter = require('./routes/users');
-var userRouter = require('./routes/user');
-var publiRouter = require('./routes/posts');
+const usersRouter = require('./routes/users');
+const userRouter = require('./routes/user');
+const publiRouter = require('./routes/posts');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
