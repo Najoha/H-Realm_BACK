@@ -11,7 +11,7 @@ exports.signup = async (req, res) => {
 
   try {
 
-    const { prenom, nom, age, bio, email, password} = req.body;
+    const { id, prenom, nom, age, bio, email, password} = req.body;
 
     if (!(email && password && prenom && nom && age && bio)) {
         res.status(400).send('All input is required');
@@ -26,6 +26,7 @@ exports.signup = async (req, res) => {
     encryptedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
+        id,
         prenom,
         nom,
         age,
@@ -91,5 +92,30 @@ exports.logout = async (req, res) => {
 
 exports.getUser = async (req,res,next)=>{
     const users = await User.find();
+    return res.send(users);
+}
+
+exports.updateUser = async (req, res) => {
+    try {
+
+        const { prenom, nom, age, bio} = req.body;
+    
+        const user = await User.updateOne({
+            prenom,
+            nom,
+            age,
+            bio,
+        });
+    
+        res.status(200).json(user);
+    
+      } catch (err){
+        console.log(err);
+      }
+}
+
+exports.deleteUser = async (req, res, next) => {
+    const id = req.params.id;
+    const users = await User.deleteOne({id: id});
     return res.send(users);
 }
