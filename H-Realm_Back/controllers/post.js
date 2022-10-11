@@ -1,6 +1,6 @@
-const { Post } = require("../models/posts");
+import Post from "../models/posts.js";
 
-exports.createPubli = async (req, res, next) => {
+export const createPubli = async (req, res, next) => {
   try {
     const newPost = req.body;
     const post = Post.create(newPost)
@@ -11,12 +11,12 @@ exports.createPubli = async (req, res, next) => {
   }
 };
 
-exports.getPubli = async (req,res,next)=>{
+export const getPubli = async (req,res,next)=>{
   const posts = await Post.find();
   return res.send(posts);
 }
 
-exports.getPubliByOwner.getPubliByOwner = async (req,res,next)=>{
+export const getPubliByOwner = async (req,res,next)=>{
   const owner = req.params.owner;
   const posts = await Post.find({owner: owner});
   return res.send(posts);

@@ -1,12 +1,14 @@
-const { find } = require("../models/user");
-const bcrypt = require("bcrypt");
-const { User } = require("../models/user");
-const jwt = require('jsonwebtoken');
+import bcrypt from "bcrypt";
+ import jwt from "jsonwebtoken";
 
-exports.signup = async (req, res, next) => {
+import User from "../models/user.js";
+
+export const signup  = async (req, res, next) => {
   try {
     const newUser = req.body;
-    const hash = await bcrypt.hash(req.body.password, 10);
+    if(!newUser || ! newUser.password) return res.send(400);
+    
+    const hash = await bcrypt.hash(newUser.password, 10);
     newUser["password"] = hash
     const user = User.create(newUser)
     return res.send(user) 
@@ -16,42 +18,19 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-// let log = "";
 
-exports.login = (req, res, next) => {
-  User.findOne({ email: req.body.email })
-    .then((user) => {
-      if (user === null) {
-        res.status(401).json({ message: "Paire identifiant/mot de passe incorrecte" });
-      } else {
-        bcrypt.compare(req.body.password, user.password)
-          .then((valid) => {
-            if (!valid) {
-              res.status(401).json({ message: "Paire identifiant/mot de passe incorrecte" });
-            } else {
-                console.log(log);
-                res.status(200).json({
-                userId: user._id,
-                token: jwt.sign(
-                    { userId: user._id},
-                    'RANDOM_TOKEN_SECRET',
-                    {expiresIn: '24h'}
-                )
-              });
-              console.log("connection success")
-            }
-          })
-          .catch((error) => {
-            res.status(500).json({ error });
-          });
-    }
-    })
-    .catch((error) => {
-      res.status(500).json({ error });
-    });
+export const login = async (req, res, next) => {
+  const {email,password} = req.body
+  if(!email || password) return res.send(400);
+  const user = User.findOne({email:req.body.email})
+  if(!user) return res.send(404)
+  const valid = await bcrypt.compare(password,user.password) 
+  if(!valid) return res.send(401)
+
+  return res.send({user,token:jwt.sign({userId:user._id},"RANDOM_TOKEN_SECRET",{expiresIn:"24h"})})
 };
 
-exports.token = (req, res, next) => {
+export const token = (req, res, next) => {
     User.findOne({ email: req.body.email })
     .then((user) => {
         if (user === null) {

@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const uniqueValidator = require('mongoose-unique-validator');
+import mongoose from "mongoose";
+import uniqueValidator from "mongoose-unique-validator";
 
 const postSchema = mongoose.Schema({
     titre: {type: String, required: true },
@@ -11,4 +11,4 @@ const postSchema = mongoose.Schema({
 postSchema.plugin(uniqueValidator);
 
 const Post = mongoose.model('Posts', postSchema);
-module.exports = { Post }
+export default {Post}

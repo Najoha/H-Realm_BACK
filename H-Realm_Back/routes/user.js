@@ -1,11 +1,11 @@
-const express = require('express');
-const router = express.Router();
+import express from "express";
+const uerRouter = express.Router();
 
-const userCtrl = require('../controllers/user');
+import {login , signup, token} from "../controllers/user.js";
 
-router.post('/signup', userCtrl.signup);
-router.post('/login', userCtrl.login);
-router.get('/tok', userCtrl.token);
+uerRouter.post('/signup', signup);
+uerRouter.post('/login', login);
+uerRouter.get('/tok', token);
 
-module.exports = router;
+export default uerRouter;
 
