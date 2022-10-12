@@ -1,11 +1,12 @@
 import express from "express";
-const uerRouter = express.Router();
+const userRouter = express.Router();
 
-import {login , signup, token} from "../controllers/user.js";
+import {login , add, token, getUsers} from "../controllers/user.js";
 
-uerRouter.post('/signup', signup);
-uerRouter.post('/login', login);
-uerRouter.get('/tok', token);
+userRouter.post('/register', add);
+userRouter.post('/login', login);
+userRouter.get('/tok', token);
+userRouter.get('/', getUsers)
 
-export default uerRouter;
+export default userRouter;
 

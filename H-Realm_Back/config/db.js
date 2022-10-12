@@ -1,5 +1,5 @@
 import { mongoose } from "mongoose";
-const url = "mongodb+srv://Clement:ouiouibaguette@cluster0.jpwzpin.mongodb.net/?retryWrites=true&w=majority";
+const url = "mongodb+srv://ME:oui@h-realm.uadxt.mongodb.net/?retryWrites=true&w=majority";
 const db = mongoose.connection;
 
 mongoose.connect(url);

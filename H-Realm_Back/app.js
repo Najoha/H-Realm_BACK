@@ -16,14 +16,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use('/users', userRouter);
-app.use('/posts', publiRouter);
+app.use('/user', userRouter);
+app.use('/post', publiRouter);
 
-/** 404 error handler */
-app.use((req, res) => {
-  const error = new Error("Not Found");
-  res.status(404).json({ message: error.message });
+
+
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World");
 });
+
 
 
 
@@ -38,6 +39,11 @@ app.use(function (req, res, next) {
     "X-Requested-With,content-type, Accept"
   );
   next();
+});
+
+// catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404));
 });
 
 

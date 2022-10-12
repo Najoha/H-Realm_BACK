@@ -20,16 +20,13 @@ const userSchema = mongoose.Schema({
         required : true
     },
     age : {
-        type : Number,
-        required : true
+        type : Number
     },
     bio : {
-        type : String,
-        required : true
+        type : String
     }
 }, {collection: "users", timestamps: true});
 
 userSchema.plugin(uniqueValidator);
 
-const User = mongoose.model('User', userSchema);
-export default { User }
+export const User = mongoose.model('users', userSchema);

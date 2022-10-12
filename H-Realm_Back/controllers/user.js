@@ -1,9 +1,9 @@
 import bcrypt from "bcrypt";
  import jwt from "jsonwebtoken";
 
-import User from "../models/user.js";
+import {User} from "../models/user.js";
 
-export const signup  = async (req, res, next) => {
+export const add  = async (req, res, next) => {
   try {
     const newUser = req.body;
     if(!newUser || ! newUser.password) return res.send(400);
@@ -11,7 +11,7 @@ export const signup  = async (req, res, next) => {
     const hash = await bcrypt.hash(newUser.password, 10);
     newUser["password"] = hash
     const user = User.create(newUser)
-    return res.send(user) 
+    return res.send("Votre compte a été créé avec succès.") 
   } catch (error) {
     console.error(error)
     throw error
@@ -43,6 +43,11 @@ export const token = (req, res, next) => {
     .catch((error) => {
         res.status(500).json({ error });
     })
+}
+
+export const getUsers = async (req,res,next)=>{
+  const users = await User.find();
+  return res.send(users);
 }
 
     

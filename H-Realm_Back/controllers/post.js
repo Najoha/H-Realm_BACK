@@ -1,10 +1,10 @@
-import Post from "../models/posts.js";
+import {Post} from "../models/posts.js";
 
 export const createPubli = async (req, res, next) => {
   try {
     const newPost = req.body;
     const post = Post.create(newPost)
-    return res.send(post) 
+    return res.send("Votre publication à été crée avec succès") 
   } catch (error) {
     console.error(error)
     throw error
