@@ -98,9 +98,10 @@ exports.getUser = async (req,res,next)=>{
 exports.updateUser = async (req, res) => {
     try {
 
-        const { prenom, nom, age, bio} = req.body;
+        const { username,prenom, nom, age, bio} = req.body;
     
         const user = await User.updateOne({
+            username,
             prenom,
             nom,
             age,

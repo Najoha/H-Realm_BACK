@@ -16,7 +16,7 @@ const app = express();
 
 
 
-// app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
@@ -24,7 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', userRouter);
 app.use('/api/auth', userRouter);
-app.use('/publi', publiRouter);
+app.use('/posts', publiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

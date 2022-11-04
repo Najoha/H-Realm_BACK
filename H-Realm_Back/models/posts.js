@@ -1,8 +1,9 @@
+const { ObjectId } = require('mongodb');
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const postSchema = mongoose.Schema({
-    titre: { 
+     titre: { 
         type: String, 
         required: true 
     },
