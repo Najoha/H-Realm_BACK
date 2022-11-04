@@ -10,10 +10,9 @@ require("dotenv").config;
 exports.signup = async (req, res) => {
 
   try {
+    const {username, prenom, nom, age, bio, email, password} = req.body;
 
-    const {prenom, nom, age, bio, email, password} = req.body;
-
-    if (!(email && password && prenom && nom )) {
+    if (!(username && email && password && prenom && nom )) {
         res.status(400).send('All input are required');
     };
 
@@ -26,6 +25,7 @@ exports.signup = async (req, res) => {
     encryptedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
+        username,
         prenom,
         nom,
         age,
