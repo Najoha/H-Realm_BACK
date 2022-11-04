@@ -34,7 +34,7 @@ exports.signup = async (req, res) => {
         password: encryptedPassword
     });
 
-    res.status(200).json(user);
+    res.status(200).json("User have been created : "+ req.body.username);
 
   } catch (err){
     console.error(err)
@@ -64,7 +64,7 @@ exports.login = async (req, res) => {
 
             user.token = token;
 
-            return res.status(200).json(user);
+            return res.status(200).json("Token :"+user.token);
         }
         res.status(400).send("Invalid Credentials")
     }
@@ -91,8 +91,8 @@ exports.logout = async (req, res) => {
 }
 
 exports.getUser = async (req,res,next)=>{
-    const users = await User.find();
-    return res.send(users);
+    const datas = await User.find({},"username bio");
+    return res.send(datas);
 }
 
 exports.updateUser = async (req, res) => {

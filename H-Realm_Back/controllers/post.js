@@ -5,14 +5,13 @@ exports.createPubli = async (req, res, next) => {
 
   try {
 
-    const { id, titre, contenu, owner, genre} = req.body;
+    const {titre, contenu, owner, genre} = req.body;
 
     if (!(titre && contenu && owner && genre)) {
       res.status(400).send('All input are required');
     }
 
     const post = await Post.create({
-      id,
       titre,
       contenu,
       owner,
@@ -28,23 +27,31 @@ exports.createPubli = async (req, res, next) => {
 }
 
 exports.getPubli = async (req,res,next)=>{
-  const posts = await Post.find();
+try {
+  const query = req.query
+  console.log(query);
+  const posts = await Post.find(query);
   return res.send(posts);
+} catch (error) {
+  console.error(error);
+  next(error)
 }
 
-exports.getPubliById = async (req,res,next)=>{
+}
+
+exports.getPubliById = async (req,res)=>{
   const id = req.params.id;
   const posts = await Post.find({id: id});
   return res.send(posts);
 }
 
-exports.getPubliByOwner = async (req,res,next)=>{
+exports.getPubliByOwner = async (req,res)=>{
   const owner = req.params.owner;
-  const posts = await Post.find({owner: owner});
+  const posts = await Post.find({owner: owner},"titre contenu genre");
   return res.send(posts);
 }
 
-exports.getPubliByGenre = async (req, res, next) => {
+exports.getPubliByGenre = async (req, res) => {
   const genre = req.params.genre;
   const posts = await Post.find({genre: genre});
   return res.send(posts);
