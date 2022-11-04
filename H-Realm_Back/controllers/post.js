@@ -5,9 +5,9 @@ exports.createPubli = async (req, res, next) => {
 
   try {
 
-    const { id, titre, contenu, owner} = req.body;
+    const { id, titre, contenu, owner, genre} = req.body;
 
-    if (!(titre && contenu && owner)) {
+    if (!(titre && contenu && owner && genre)) {
       res.status(400).send('All input is required');
     }
 
@@ -15,7 +15,8 @@ exports.createPubli = async (req, res, next) => {
       id,
       titre,
       contenu,
-      owner
+      owner,
+      genre
     });
 
     res.status(200).send(post);
@@ -43,18 +44,25 @@ exports.getPubliByOwner = async (req,res,next)=>{
   return res.send(posts);
 }
 
+exports.getPubliByGenre = async (req, res, next) => {
+  const genre = req.params.genre;
+  const posts = await Post.find({genre: genre});
+  return res.send(posts);
+}
+
 exports.updatePubli = async (req, res, next) => {
   try {
-    const { titre, contenu, owner} = req.body;
+    const { titre, contenu, owner, genre} = req.body;
 
-    if (!(titre && contenu && owner)) {
+    if (!(titre && contenu && owner && genre)) {
       res.status(400).send('All input is required');
     }
 
     const post = await Post.updateOne({
       titre,
       contenu,
-      owner
+      owner,
+      genre
     });
 
     res.status(200).send(post);
