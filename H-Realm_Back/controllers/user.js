@@ -11,10 +11,10 @@ exports.signup = async (req, res) => {
 
   try {
 
-    const { id, prenom, nom, age, bio, email, password} = req.body;
+    const {prenom, nom, age, bio, email, password} = req.body;
 
-    if (!(email && password && prenom && nom && age && bio)) {
-        res.status(400).send('All input is required');
+    if (!(email && password && prenom && nom )) {
+        res.status(400).send('All input are required');
     };
 
     const oldUser = await User.findOne({ email });
@@ -26,7 +26,6 @@ exports.signup = async (req, res) => {
     encryptedPassword = await bcrypt.hash(password, 10);
 
     const user = await User.create({
-        id,
         prenom,
         nom,
         age,
@@ -38,7 +37,8 @@ exports.signup = async (req, res) => {
     res.status(200).json(user);
 
   } catch (err){
-    console.log(err);
+    console.error(err)
+    throw err
   }
 };
 
@@ -68,8 +68,8 @@ exports.login = async (req, res) => {
         }
         res.status(400).send("Invalid Credentials")
     }
-    catch (err){
-        console.log(err)
+    catch (error) {
+        res.status(500).json({ error });
     }
 };
 
@@ -115,7 +115,7 @@ exports.updateUser = async (req, res) => {
 }
 
 exports.deleteUser = async (req, res, next) => {
-    const id = req.params.id;
-    const users = await User.deleteOne({id: id});
+    const prenom = req.params.prenom;
+    const users = await User.deleteOne({prenom: prenom});
     return res.send(users);
 }
