@@ -8,7 +8,7 @@ exports.createPubli = async (req, res, next) => {
     const { id, titre, contenu, owner, genre} = req.body;
 
     if (!(titre && contenu && owner && genre)) {
-      res.status(400).send('All input is required');
+      res.status(400).send('All input are required');
     }
 
     const post = await Post.create({
@@ -55,7 +55,7 @@ exports.updatePubli = async (req, res, next) => {
     const { titre, contenu, owner, genre} = req.body;
 
     if (!(titre && contenu && owner && genre)) {
-      res.status(400).send('All input is required');
+      res.status(400).send('All input are required');
     }
 
     const post = await Post.updateOne({

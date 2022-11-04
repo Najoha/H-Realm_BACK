@@ -20,7 +20,7 @@ exports.signup = async (req, res) => {
     const oldUser = await User.findOne({ email });
 
     if (oldUser) {
-        return res.status(409).send('User Already Exist. Please Login')
+        return res.status(409).send('This Email address is already used.')
     };
 
     encryptedPassword = await bcrypt.hash(password, 10);
@@ -50,7 +50,7 @@ exports.login = async (req, res) => {
         const { email, password } = req.body;
 
         if(!(email && password)) {
-            res.status(400).send('All input is required');
+            res.status(400).send('All input are required');
         }
 
         const user = await User.findOne({email});
