@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const axios = require("axios")
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const db = require("./config/db");
@@ -13,7 +14,20 @@ const publiRouter = require('./routes/posts');
 const app = express();
 
 // view engine setup
+// const testGetPubliByOwner = async (username) => { // ok pour GET les Publi By Owner
+//   await axios // sert à appeller l'API
+//       .get(`http://localhost:3000/posts/?owner=${username}`)
+//       .then(res => {
+//           console.log(`statusCode: ${res.status}`);
+//           return res.data;
+//       })
+//       .catch(error => {
+//           console.error(error);
+//           return null;
+//       });
+// }
 
+// testGetPubliByOwner("johanna");
 
 
 app.use(logger('dev'));
