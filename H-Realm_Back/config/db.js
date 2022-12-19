@@ -1,8 +1,8 @@
 const { default: mongoose } = require("mongoose");
-//const MONGO_URI = "mongodb+srv://Clement:ouiouibaguette@cluster0.jpwzpin.mongodb.net/?retryWrites=true&w=majority"
-const MONGO_URI = "mongodb+srv://ME:oui@h-realm.uadxt.mongodb.net/?retryWrites=true&w=majorityy"
+// const MONGO_URI = "mongodb+srv://Clement:ouiouibaguette@cluster0.jpwzpin.mongodb.net/?retryWrites=true&w=majority"
+const MONGO_URI = "mongodb+srv://ME:oui@h-realm.uadxt.mongodb.net/?retryWrites=true&w=majority"
 
-const db = mongoose.connection;
+// const db = mongoose.connection;
 
 exports.connect = () => {
     mongoose.connect(MONGO_URI)

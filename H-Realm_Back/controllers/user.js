@@ -8,7 +8,6 @@ require("dotenv").config;
 
 
 exports.signup = async (req, res) => {
-
   try {
     const {username, prenom, nom, age, bio, email, password} = req.body;
 
@@ -30,11 +29,12 @@ exports.signup = async (req, res) => {
         nom,
         age,
         bio,
-        email: email.toLowerCase(),
+        email: email,
         password: encryptedPassword
     });
 
     res.status(200).json("User have been created : "+ req.body.username);
+    
 
   } catch (err){
     console.error(err)
@@ -47,24 +47,24 @@ exports.login = async (req, res) => {
     try {
         TOKEN_KEY = 'RANDOM_TOKEN_SECRET'
 
-        const { email, password } = req.body;
+        const { username, password } = req.body;
 
-        if(!(email && password)) {
+        if(!(username && password)) {
             res.status(400).send('All input are required');
         }
 
-        const user = await User.findOne({email});
+        const user = await User.findOne({username}, "username password ");
 
         if (user && (await bcrypt.compare(password, user.password))) {
             const token = jwt.sign(
-                { user_id: user._id, email },
+                { user_id: user._id, username },
                 TOKEN_KEY,
-                { expiresIn: "24h" },
+                { expiresIn: '24h' },
             );
 
             user.token = token;
 
-            return res.status(200).json("Token :"+user.token);
+            return res.status(200).json(user);
         }
         res.status(400).send("Invalid Credentials")
     }
@@ -72,6 +72,8 @@ exports.login = async (req, res) => {
         res.status(500).json({ error });
     }
 };
+
+
 
 exports.test = async (req, res) => {
     return res.status(200).send("hello")
@@ -120,3 +122,4 @@ exports.deleteUser = async (req, res, next) => {
     const users = await User.deleteOne({prenom: prenom});
     return res.send(users);
 }
+

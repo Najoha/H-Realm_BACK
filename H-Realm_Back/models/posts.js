@@ -12,8 +12,7 @@ const postSchema = mongoose.Schema({
         required: true
     },
     owner: { 
-        type: String, 
-        required: true 
+        type: String 
     },
     likes: { 
         type: Number

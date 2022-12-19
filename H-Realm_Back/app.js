@@ -34,6 +34,9 @@ const app = express();
 // testGetPubliByOwner("johanna");
 
 
+// app.use(function (req, res, next) {
+//   res.setHeader("Access-Control-Allow-Origin", "http://localhost:3001");
+// });
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -43,8 +46,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin:"*",
   methods:["GET","PUT","POST"],
-  allowedHeaders: [ "Origin, X-Requested-With, Content-Type, Accept"]
+  // allowedHeaders: [ "Origin, X-Requested-With, Content-Type, Accept"]
 }))
+
+
+
 app.use('/user', userRouter);
 app.use('/api/auth', userRouter);
 app.use('/posts', publiRouter);
@@ -54,11 +60,7 @@ app.use(function(req, res, next) {
   next(createError(404));
 });
 
-app.all('/', function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next()
-});
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -72,7 +74,6 @@ app.use(function(err, req, res, next) {
     error: err
   });
 });
-
 
 
 

@@ -7,15 +7,15 @@ exports.createPubli = async (req, res, next) => {
   try {
 
     const {titre, contenu, owner, genre} = req.body;
-    if (!(titre && contenu && owner && genre)) {
+    if (!(titre && contenu && genre && owner)) {
       res.status(400).send('All input are required');
     }
-
+    console.log(titre )
     const post = await Post.create({
       titre,
       contenu,
-      owner,
-      genre
+      genre,
+      owner
     });
 
     res.status(200).send(post);
@@ -27,8 +27,10 @@ exports.createPubli = async (req, res, next) => {
 }
 
 exports.getPubli = async (req,res,next)=>{
+  
   try {
     const query = req.query
+    console.log(req.user)
     const posts = await Post.find(query);
     return res.send(posts);
   } catch (error) {
