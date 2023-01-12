@@ -9,8 +9,8 @@ router.post('/login', userCtrl.login);
 router.post('/logout', auth, userCtrl.logout);
 router.post('/welcome', auth, userCtrl.test);
 router.get("/",  userCtrl.getUser);
-router.delete("/delete/:prenom", auth, userCtrl.deleteUser);
-router.put("/update/", auth, userCtrl.updateUser);
+router.delete("/delete/", auth, userCtrl.deleteUser);
+router.put("/update/", userCtrl.updateUser);
 
 module.exports = router;
 

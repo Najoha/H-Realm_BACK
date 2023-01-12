@@ -102,7 +102,7 @@ exports.getUser = async (req,res,next)=>{
     try {
       const query = req.query
       console.log(req.user)
-      const users = await User.find(query);
+      const users = await User.findOne(query);
       return res.send(users);
     } catch (error) {
       console.error(error);
@@ -113,13 +113,15 @@ exports.getUser = async (req,res,next)=>{
 exports.updateUser = async (req, res) => {
     try {
         const query = req.query
-        const { username, age, bio} = req.body;
+        const { username, bio, photo} = req.body;
+        
 
-        const user = await User.findOneAndUpdate(query, {
+        const user = await User.findOneAndUpdate( query, {
+            photo,
             username,
-            age,
             bio,
-        });
+         }
+        );
     
         res.status(200).json(user);
     

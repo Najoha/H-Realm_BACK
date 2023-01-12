@@ -14,6 +14,9 @@ const postSchema = mongoose.Schema({
     owner: { 
         type: String 
     },
+    select: { 
+        type: String
+    },
     likes: { 
         type: Number
     },
