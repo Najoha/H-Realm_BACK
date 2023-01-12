@@ -10,7 +10,7 @@ router.post('/logout', auth, userCtrl.logout);
 router.post('/welcome', auth, userCtrl.test);
 router.get("/",  userCtrl.getUser);
 router.delete("/delete/:prenom", auth, userCtrl.deleteUser);
-router.put("/update/:id", auth, userCtrl.updateUser);
+router.put("/update/", auth, userCtrl.updateUser);
 
 module.exports = router;
 

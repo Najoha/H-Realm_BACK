@@ -26,8 +26,7 @@ exports.createPubli = async (req, res, next) => {
   }
 }
 
-exports.getPubli = async (req,res,next)=>{
-  
+exports.getPubli = async (req,res,next)=>{  
   try {
     const query = req.query
     console.log(req.user)
@@ -63,7 +62,13 @@ exports.updatePubli = async (req, res, next) => {
 }
 
 exports.deletePubli = async (req, res, next) => {
-  const id = req.params.id;
-  const posts = await Post.deleteOne({id: id});
-  return res.send(posts);
+  try {
+    const query = req.query
+    console.log(req.user)
+    const posts = await Post.deleteOne(query);
+    return res.send(posts);
+  } catch (error) {
+    console.error(error);
+    next(error)
+  }
 }

@@ -4,15 +4,20 @@ TOKEN_KEY = 'RANDOM_TOKEN_SECRET'
 
 const verifyToken = (req, res, next) => {
     const bearerHeader = req.headers['authorization'];
+
+    if (!bearerHeader) {
+        return res.status(403).send('no token founded');
+    }
     const bearer = bearerHeader.split(' ');
     const bearerToken = bearer[1];
+   
 
     console.log(bearerToken);
 
     if (!bearerToken) {
         return res.status(403).send('A token is required for authentication');
     }
-
+    
     try {
         const decoded = jwt.verify(bearerToken, TOKEN_KEY);
         req.user = decoded;

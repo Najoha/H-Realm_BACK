@@ -45,7 +45,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors({
   origin:"*",
-  methods:["GET","PUT","POST"],
+  methods:["GET","PUT","POST", "DELETE"],
   // allowedHeaders: [ "Origin, X-Requested-With, Content-Type, Accept"]
 }))
 

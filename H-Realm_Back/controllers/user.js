@@ -92,20 +92,31 @@ exports.logout = async (req, res) => {
     }
 }
 
+// exports.getUser = async (req,res,next)=>{
+//     const datas = await User.find({},"username bio");
+//     return res.send(datas);
+// }
+
 exports.getUser = async (req,res,next)=>{
-    const datas = await User.find({},"username bio");
-    return res.send(datas);
-}
+  
+    try {
+      const query = req.query
+      console.log(req.user)
+      const users = await User.find(query);
+      return res.send(users);
+    } catch (error) {
+      console.error(error);
+      next(error)
+    }
+  }
 
 exports.updateUser = async (req, res) => {
     try {
+        const query = req.query
+        const { username, age, bio} = req.body;
 
-        const { username,prenom, nom, age, bio} = req.body;
-    
-        const user = await User.updateOne({
+        const user = await User.findOneAndUpdate(query, {
             username,
-            prenom,
-            nom,
             age,
             bio,
         });
