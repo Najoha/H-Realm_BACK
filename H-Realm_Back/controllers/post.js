@@ -80,15 +80,37 @@ exports.deletePubli = async (req, res, next) => {
 exports.Selected = async (req,res,next)=>{  
   try {
     const query = req.query
-    const posts = await Post.findOne(query);
-    const selected ={"select": "oui"};
-    const post = await Post.updateOne(posts, {
-      selected
+
+    const {select} = req.body;
+
+    const post = await Post.findOneAndUpdate(query,{
+      select
     });
-    return res.send(post);
-  } catch (error) {
-    console.error(error);
-    next(error)
+    console.log(req.body);
+    res.status(200).send(post);
+
+  } 
+  catch (error) {
+    console.log(req.body);
+    console.log(error);
+  }
+}
+
+exports.Remove = async (req,res,next)=>{  
+  try {
+    const query = req.query
+
+    const {select} = req.body;
+
+    const post = await Post.findOneAndUpdate(query,{
+      select
+    });
+
+    res.status(200).send(post);
+
+  } 
+  catch (error) {
+    console.log(error);
   }
 }
 

@@ -8,6 +8,10 @@ router.get("/", auth, postCtrl.getPubli);
 router.post("/add", postCtrl.createPubli);
 router.put("/update/",  postCtrl.updatePubli);
 router.delete("/delete/", auth, postCtrl.deletePubli);
+router.put("/select/", postCtrl.Selected);
+router.put("/remove/", postCtrl.Remove);
+
+
 
 
 module.exports = router;
