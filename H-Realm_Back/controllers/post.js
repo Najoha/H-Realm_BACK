@@ -40,6 +40,16 @@ exports.getPubli = async (req,res,next)=>{
   }
 }
 
+exports.getSelection = async (req,res,next)=>{  
+  try {
+    const posts = await Post.find({select: "oui"});
+    return res.send(posts);
+  } catch (error) {
+    console.error(error);
+    next(error)
+  }
+}
+
 exports.updatePubli = async (req, res) => {
   try {
     const query = req.query
@@ -54,6 +64,25 @@ exports.updatePubli = async (req, res) => {
       titre,
       contenu,
       genre,
+      owner
+    });
+
+    res.status(200).send(post);
+
+  } 
+  catch (error) {
+    console.log(error);
+  }
+}
+
+exports.updateOwner = async (req, res) => {
+  try {
+    const query = req.query
+
+    const {owner} = req.body;
+
+   
+    const post = await Post.updateMany(query,{
       owner
     });
 

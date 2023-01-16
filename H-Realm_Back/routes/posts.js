@@ -10,6 +10,9 @@ router.put("/update/",  postCtrl.updatePubli);
 router.delete("/delete/", auth, postCtrl.deletePubli);
 router.put("/select/", postCtrl.Selected);
 router.put("/remove/", postCtrl.Remove);
+router.put("/owner/", postCtrl.updateOwner);
+router.get("/selection/", postCtrl.getSelection);
+
 
 
 
